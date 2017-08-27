@@ -3,6 +3,12 @@ var app = express();
 var router = express.Router();
 var path = __dirname + '/views/';
 
+//var mongo = require("mongodb");
+//var monk = require("monk");
+
+//var db = monk('localhost:27017/TheInternet);
+
+
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -24,6 +30,11 @@ router.get("/main_login",function(req,res){
 // router.get("/contact",function(req,res){
 //   res.sendFile(path + "contact.html");
 // });
+
+//app.use(function(req,res,next){
+  //  req.db = db;
+    //next();
+//});
 
 app.use("/",router);
 
