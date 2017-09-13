@@ -20,13 +20,37 @@ var mongoose = require('mongoose'); //package handler for mongo
 mongoose.connect('mongodb://localhost/loginapp');
 var db = mongoose.connection;
 
+//Used for sending mail via contact form
+var nodemailer = require('nodemailer');
+
+//Transporter used to get gmail account
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        type: 'OAuth2',
+        user: 'theinternet.onthewifi@gmail.com',
+        clientId: '139955258255-a3c6ilqu6rtocigde7cbrusicg7j00eh.apps.googleusercontent.com',
+        clientSecret: 'Q775xefdHA_BGu3ZnY9-6sP-',
+        refreshToken: '1/0HfdzyzW3FmnDPqeYkv19_py6zWgMCOqI9DSZ9kQWfc',
+        accessToken: 'ya29.GlvDBGA2Z_coEKjQOnXAnBLbTB0wQmS-sARqNGC3V2UATiywNb34IhFq4d7UQvhTobE6pi83-FB2-OvMWjC-mk-EKPMYmwxFe9AOZ7mY6kurYyQ7e1Mu8m8INxg7'
+    }
+})
+
+//Email structure to be sent
+var mailOptions = {
+    from: ' NAME <theinternet.onthewifi@gmail.com>',
+    to: 'theinternet.onthewifi@gmail.com',
+    subject: 'Nodemailer test',
+    text: 'Hello World!!'
+}
+
+
+//Routes used to show different pages
 var index = require('./routes/index');//main router
 var users = require('./routes/users');//currently not used will remove when app completed
 var login = require('./routes/login');//route for login page
 var homepage = require('./routes/homepage');//route for homepage
 
-//Mail Contact Sheet
-//let transporter = nodemailer.createTransporter(transport[, default]);
 
 //Init App
 var app = express();
@@ -95,6 +119,30 @@ app.use('/login', login);//figure out why this doesnt work?
 app.use('/homepage', homepage);
 //app.use('/dashboard', dashboard);
 
+//Post from contact submit button, need to create a homepage with success message for submitted forms
+app.post('/contact_Form', function(req, res){
+    //Get information out of the contact form, from homepage.hbs
+    var name = req.body.name;
+    var email = req.body.email;
+    var phone = req.body.phone;
+    var message = req.body.message;
+
+    var mailOptions = { //creates information used when sending a message
+        from: 'Automatic Email',
+        to: 'theinternet.onthewifi@gmail.com',
+        subject: 'Website Contact Form: ' + name,
+        text: 'You have received a new message from your website contact form.\n\n' + 'Here are the details:\n\nName: ' + name + '\n\nEmail: ' + email + '\n\nPhone: ' + phone + '\n\nMessage:\n' + message
+    }
+  transporter.sendMail(mailOptions, function (err, res) {
+        if(err){
+            console.log('Error');
+        }else {
+            console.log('Email Sent');
+        }
+    })
+    res.render('index'); //render new homepage, look into how to do this with success message, like logout page
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -111,6 +159,13 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// Set Port
+app.set('port', (process.env.PORT || 3000));
+
+app.listen(app.get('port'), function(){
+    console.log('Server started on port '+app.get('port'));
 });
 
 module.exports = app;
