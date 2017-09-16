@@ -161,11 +161,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Set Port
-app.set('port', (process.env.PORT || 3000));
+//Set Port, uncomment if you use node app.js to start your server, other wise use npm start, which will load your www file and start your app
+// app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function(){
-    console.log('Server started on port '+app.get('port'));
-});
+// app.listen(app.get('port'), function(){
+//     console.log('Server started on port '+app.get('port'));
+// });
 
 module.exports = app;
