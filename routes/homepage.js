@@ -10,11 +10,13 @@ var http = require('http');
 var userCount = 0;
 var Count = require('../models/count');
 var collection = db.collection('count');
+var ipc = db.collection('ip');
 
-/* GET users listing. */
 //Homepage
 router.get('/', function(req, res){
-	Count.getCount(collection, function(count){
+	var ip = req.ip;
+	console.log("1" + ip);
+	Count.getCount(collection, ipc, ip, function(count){
     	
     });
     count = db.collection('count').findOne({id: "hit counter"}, function(err, count){
@@ -24,4 +26,3 @@ router.get('/', function(req, res){
 });
 
 module.exports = router;
-
