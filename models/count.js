@@ -17,13 +17,12 @@ var CountSchema = mongoose.Schema({
  
 var Count = module.exports = mongoose.model('Count', CountSchema);
  
-module.exports.getCount = function(count, ipc, ip, callback){//count is test, callback isfunction
-	console.log("2" + ip);
-    ipc.findOne({ip : ip}, function(err, iptest){
+module.exports.getCount = function(count, ipc, Public_ip, callback){//count is test, callback isfunction
+    ipc.findOne({ip : Public_ip}, function(err, iptest){
         if(!iptest)//add a new ip if not in the database, and update counter
         {
             var new_ip = new Ip({
-                ip: ip,
+                ip: Public_ip,
                 count: 1
             });
             db.collection('ip').save(new_ip);//add new ip to database
@@ -35,7 +34,7 @@ module.exports.getCount = function(count, ipc, ip, callback){//count is test, ca
         else//update specific ip counter, to see who visits the most
         {
             ipc.update(
-                { ip: ip },
+                { ip: Public_ip },
                 { $inc: {count: 1} }
             )
         }
