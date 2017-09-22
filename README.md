@@ -8,7 +8,7 @@ Once this has been done follow the steps to download this and set it up.
 
 On a linux machine or mac
 
-'''sh
+```sh
 $ git clone https://github.com/11jwolfe2/TheInternet.git
-'''
+```
 
