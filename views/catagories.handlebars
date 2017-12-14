@@ -1,0 +1,20 @@
+<section id="">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 mx-auto">
+          {{#each catagories}}
+          <form method="post" action="/blog">
+            <div class="post-preview">
+              <h2 class="post-title" >
+                {{this}}
+              </h2>
+            <button type="submit" name="catagory" class="btn btn-primary btn-md" id="catagory" value="{{this}}">Go to These Posts</button>
+            </div>
+          <hr>
+          </form>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </section>
+    <hr>

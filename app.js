@@ -50,7 +50,9 @@ var index = require('./routes/index');//main router
 var users = require('./routes/users');//currently not used will remove when app completed
 var login = require('./routes/login');//route for login page
 var homepage = require('./routes/homepage');//route for homepage
-
+var blog = require('./routes/blog');//route for blog 
+var post = require('./routes/post');//route for blog post
+var addblogpost = require('./routes/addblogpost');//route for adding a blog post through the user login dashboard
 
 //Init App
 var app = express();
@@ -117,6 +119,9 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);//figure out why this doesnt work?
 app.use('/homepage', homepage);
+app.use('/blog', blog);
+app.use('/post', post);
+app.use('/addblogpost', addblogpost);
 //app.use('/dashboard', dashboard);
 
 //Post from contact submit button, need to create a homepage with success message for submitted forms

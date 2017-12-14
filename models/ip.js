@@ -5,12 +5,12 @@ var mongoose = require('mongoose'); //package handler for mongo
 
 //Count Schema
 var IpSchema = mongoose.Schema({
-ip: {
-type: String,
-},
-count: {
-type: Number,
-}
+	ip: {
+		type: String,
+	},
+	count: {
+		type: Number,
+	}
 });
 
 var Ip = module.exports = mongoose.model('Ip', IpSchema);

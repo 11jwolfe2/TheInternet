@@ -1,3 +1,5 @@
+
+
 //count.js
 var mongo = require('mongodb'); //supports database
 var mongoose = require('mongoose'); //package handler for mongo
@@ -35,8 +37,8 @@ module.exports.getCount = function(count, ipc, Public_ip, callback){//count is t
         {
             ipc.update(
                 { ip: Public_ip },
-                { $inc: {count: 1} }
-            )
+                { $inc: {count: 1} 
+            });
         }
     });
 }

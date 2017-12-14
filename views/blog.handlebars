@@ -1,0 +1,26 @@
+
+    <!--Blog Article Section -->
+  <section id="">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{#each posts}}
+            <form method="post" action="/post">
+              <div class="post-preview">
+                <h2 class="post-title" >
+                  {{title}}
+                </h2>
+                <h3 class="post-subtitle">
+                  {{subtitle}}
+                </h3>
+              <p class="post-meta">Posted by {{author}} on {{date}}</p>
+             <button type="submit" name="postID" class="btn btn-primary btn-md" id="postID" value="{{_id}}">Go to Post</button>
+            </div>
+            <hr>
+            </form>
+            {{/each}}  
+         </div>
+       </div>
+    </div>
+  </section>
+    <hr>

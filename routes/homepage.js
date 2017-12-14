@@ -21,18 +21,21 @@ router.get('/', function(req, res){
     	console.log("ipv4: "+ Public_ip);
     	
     	//=> '46.5.21.123' 
+        //=>74.142.158.50
 	});
-	publicIp.v6().then(ip => {
-    	console.log("ipv6" + ip);
-    	Public_ip=ip;
-    	//=> 'fe80::200:f8ff:fe21:67cf' 
-	});	
-
+    publicIp.v6().then(ip => {
+        Public_ip=ip;
+        console.log("ipv6" + ip);
+    //=> 'fe80::200:f8ff:fe21:67cf' 
+    });
+	
+    //Access get count function in Count.js in models
 	Count.getCount(collection, ipc, Public_ip, function(count){
     	
     });
     count = db.collection('count').findOne({id: "hit counter"}, function(err, count){
     	userCount = count.count;
+        console.log(userCount);
     	res.render('homepage', {count: userCount});
     }); 
 });
